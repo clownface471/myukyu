@@ -3,31 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RHODES ISLAND :: DB</title>
+    <title>RHODES ISLAND :: DASHBOARD</title>
     <style>
-        body { background: #1a1a1a; color: #eee; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: #222; width: 300px; border-top: 5px solid #0098DC; box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 20px; position: relative; }
-        .card::before { content: "CONFIDENTIAL"; position: absolute; top: 100px; left: 20px; font-size: 3rem; color: rgba(255,255,255,0.05); transform: rotate(-45deg); font-weight: bold; pointer-events: none; }
-        h2 { color: #0098DC; margin-top: 0; font-size: 1.5rem; letter-spacing: 1px; }
-        .row { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 5px; }
-        .label { font-size: 0.7rem; color: #888; }
-        .value { font-weight: bold; font-family: monospace; font-size: 1rem; }
-        .footer { margin-top: 20px; font-size: 0.7rem; color: #555; text-align: center; }
-        .logo { width: 50px; height: 50px; background: #0098DC; margin-bottom: 10px; mask: url('https://upload.wikimedia.org/wikipedia/commons/9/9b/Rhodes_Island_Logo.svg') no-repeat center; -webkit-mask: url('https://upload.wikimedia.org/wikipedia/commons/9/9b/Rhodes_Island_Logo.svg') no-repeat center; }
+        body { background-color: #121212; color: #fff; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; }
+        /* Hexagon BG Pattern */
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(#333 15%, transparent 16%), radial-gradient(#333 15%, transparent 16%); background-size: 60px 60px; background-position: 0 0, 30px 30px; opacity: 0.1; z-index: -1; }
+        
+        .header { background: #0098DC; padding: 20px; text-align: center; font-weight: bold; letter-spacing: 2px; }
+        .container { padding: 20px; max-width: 500px; margin: 0 auto; }
+        
+        /* Tabs */
+        .tabs { display: flex; border-bottom: 2px solid #333; margin-bottom: 20px; }
+        .tab { flex: 1; padding: 15px; text-align: center; cursor: pointer; background: #1a1a1a; color: #888; transition: 0.3s; }
+        .tab.active { background: #0098DC; color: #fff; font-weight: bold; }
+        
+        /* Content Sections */
+        .content { display: none; animation: slideUp 0.3s; }
+        .content.active { display: block; }
+        @keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .data-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #333; }
+        .op-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .op-card { background: #222; padding: 10px; border-left: 3px solid #0098DC; font-size: 0.9rem; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>PERSONNEL FILE</h2>
-        <div class="row"><span class="label">ID CODE</span><span class="value">B101-DEV</span></div>
-        <div class="row"><span class="label">CODENAME</span><span class="value">DOCTOR</span></div>
-        <div class="row"><span class="label">DEPT</span><span class="value">NEURO-ENG</span></div>
-        <div class="row"><span class="label">AUTH</span><span class="value">ADMINISTRATOR</span></div>
-        
-        <div style="background: #0098DC; color: #111; padding: 10px; text-align: center; font-weight: bold; margin-top: 20px;">
-            ACCESS GRANTED
+    <div class="header">PRTS TERMINAL</div>
+    
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('profile')">PROFILE</div>
+            <div class="tab" onclick="switchTab('squad')">SQUAD</div>
+            <div class="tab" onclick="switchTab('base')">BASE</div>
         </div>
-        <div class="footer">Rhodes Island Pharmaceutical Inc.</div>
+
+        <div id="profile" class="content active">
+            <h3 style="color:#0098DC;">DOCTOR ARCHIVES</h3>
+            <div class="data-row"><span>Code Name</span><b>Doc</b></div>
+            <div class="data-row"><span>Join Date</span><b>2020-01-16</b></div>
+            <div class="data-row"><span>Department</span><b>Tactical Command</b></div>
+            <div class="data-row"><span>Mental State</span><b>Stable</b></div>
+        </div>
+
+        <div id="squad" class="content">
+            <h3 style="color:#0098DC;">ASSIGNED OPERATORS</h3>
+            <div class="op-list">
+                <div class="op-card"><b>AMIYA</b><br>Caster / E2 Lv80</div>
+                <div class="op-card"><b>KAL'TSIT</b><br>Medic / E2 Lv90</div>
+                <div class="op-card"><b>SURTR</b><br>Guard / E2 Lv90</div>
+                <div class="op-card"><b>SILVERASH</b><br>Guard / E2 Lv60</div>
+            </div>
+        </div>
+
+        <div id="base" class="content">
+            <h3 style="color:#0098DC;">FACILITY STATUS</h3>
+            <div class="data-row"><span>Control Center</span><b style="color:#0f0">ONLINE</b></div>
+            <div class="data-row"><span>Power Plant</span><b style="color:#0f0">STABLE</b></div>
+            <div class="data-row"><span>Factory</span><b style="color:orange">PRODUCING...</b></div>
+            <div class="data-row"><span>Trading Post</span><b style="color:red">LMD FULL</b></div>
+        </div>
     </div>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            
+            // Show selected
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 </body>
 </html>

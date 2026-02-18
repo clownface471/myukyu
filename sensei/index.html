@@ -3,47 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCHALE</title>
+    <title>MomoTalk</title>
     <style>
-        body { background: #eefeff; color: #2D313D; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: #fff; width: 300px; border-radius: 20px; padding: 30px; box-shadow: 0 10px 40px rgba(0, 174, 239, 0.2); position: relative; overflow: hidden; border: 1px solid #cceeff; }
-        .halo { position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; border: 2px solid #00AEEF; border-radius: 50%; opacity: 0.2; animation: spin 10s linear infinite; }
-        .halo::before { content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; border: 1px solid #00AEEF; border-radius: 50%; }
+        body { background-color: #fff; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; padding: 0; }
+        .header { background: #fd8e8e; color: white; padding: 15px; font-weight: bold; font-size: 1.2rem; display: flex; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header span { margin-left: 10px; }
         
-        h1 { color: #00AEEF; margin: 0; font-size: 2rem; font-weight: 900; letter-spacing: -1px; }
-        .sub { font-size: 0.8rem; color: #999; margin-bottom: 20px; letter-spacing: 2px; }
+        .chat-container { padding: 20px; padding-bottom: 80px; max-width: 600px; margin: 0 auto; }
         
-        .field { margin-bottom: 15px; border-left: 3px solid #00AEEF; padding-left: 10px; }
-        .lbl { font-size: 0.6rem; color: #aaa; font-weight: bold; letter-spacing: 1px; }
-        .val { font-size: 1.2rem; font-weight: bold; color: #333; }
+        .msg-row { display: flex; margin-bottom: 20px; align-items: flex-start; }
+        .avatar { width: 50px; height: 50px; background: #ddd; border-radius: 50%; margin-right: 15px; flex-shrink: 0; overflow: hidden; border: 2px solid #fd8e8e; }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
         
-        .arona { margin-top: 30px; text-align: center; color: #00AEEF; font-style: italic; font-weight: 600; background: #e0f7ff; padding: 10px; border-radius: 10px; }
+        .bubble { background: #f0f0f0; padding: 12px 18px; border-radius: 0 20px 20px 20px; position: relative; max-width: 70%; line-height: 1.4; color: #444; }
+        .name { font-size: 0.8rem; font-weight: bold; margin-bottom: 5px; color: #555; }
         
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* Sensei Reply */
+        .msg-row.sensei { justify-content: flex-end; }
+        .msg-row.sensei .bubble { background: #4a90e2; color: white; border-radius: 20px 20px 0 20px; }
+        
+        /* Interactive Area */
+        .reply-area { position: fixed; bottom: 0; left: 0; width: 100%; background: white; padding: 15px; border-top: 1px solid #eee; text-align: center; }
+        .btn-reply { background: #4a90e2; color: white; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; box-shadow: 0 3px 10px rgba(74, 144, 226, 0.3); transition: 0.2s; }
+        .btn-reply:active { transform: scale(0.95); }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="halo"></div>
-        <h1>SCHALE</h1>
-        <div class="sub">FEDERAL INVESTIGATION CLUB</div>
-        
-        <div class="field">
-            <div class="lbl">ID HOLDER</div>
-            <div class="val">SENSEI</div>
+    <div class="header">
+        <div style="width:10px; height:10px; background:white; border-radius:50%;"></div>
+        <span>MomoTalk</span>
+    </div>
+
+    <div class="chat-container" id="chatbox">
+        <div class="msg-row">
+            <div class="avatar"><img src="https://static.wikia.nocookie.net/bluearchive/images/8/88/Arona_Icon.png" alt="Arona"></div>
+            <div>
+                <div class="name">Arona</div>
+                <div class="bubble">Sensei! Welcome back! 💙</div>
+            </div>
         </div>
-        <div class="field">
-            <div class="lbl">AUTHORITY</div>
-            <div class="val">G.S.C ADVISOR</div>
-        </div>
-        <div class="field">
-            <div class="lbl">AREA</div>
-            <div class="val">KIVOTOS / ABYDOS</div>
-        </div>
-        
-        <div class="arona">
-            "Welcome back, Sensei! 💙"
+
+        <div class="msg-row">
+            <div class="avatar"><img src="https://static.wikia.nocookie.net/bluearchive/images/d/d3/Yuuka_Icon.png" alt="Yuuka"></div>
+            <div>
+                <div class="name">Yuuka</div>
+                <div class="bubble">Sensei, have you finished the paperwork for the Comifuro event?</div>
+            </div>
         </div>
     </div>
+
+    <div class="reply-area" id="replyOptions">
+        <button class="btn-reply" onclick="sendReply()">Tap to Reply: "I'm working on it!"</button>
+    </div>
+
+    <script>
+        function sendReply() {
+            const chat = document.getElementById('chatbox');
+            
+            // 1. Add Sensei Message
+            const senseiMsg = `
+                <div class="msg-row sensei">
+                    <div class="bubble">I'm working on it right now, Yuuka!</div>
+                </div>`;
+            chat.insertAdjacentHTML('beforeend', senseiMsg);
+            
+            // Hide button
+            document.getElementById('replyOptions').style.display = 'none';
+
+            // 2. Simulate Yuuka Typing/Reply after 1 second
+            setTimeout(() => {
+                const yuukaReply = `
+                <div class="msg-row">
+                     <div class="avatar"><img src="https://static.wikia.nocookie.net/bluearchive/images/d/d3/Yuuka_Icon.png"></div>
+                     <div>
+                        <div class="name">Yuuka</div>
+                        <div class="bubble">Good. Don't spend all your money on Gacha, okay? 💢</div>
+                     </div>
+                </div>`;
+                chat.insertAdjacentHTML('beforeend', yuukaReply);
+                window.scrollTo(0, document.body.scrollHeight);
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
