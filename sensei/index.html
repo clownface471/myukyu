@@ -3,73 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCHALE :: SENSEI ACCESS</title>
+    <title>SCHALE</title>
     <style>
-        body {
-            background-color: #f0f8ff; /* Alice Blue (Putih Kebiruan) */
-            color: #2D313D; /* Navy Blue */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 174, 239, 0.2);
-            border-top: 10px solid #00AEEF; /* Garis Biru Atas */
-            max-width: 350px;
-        }
-        h1 {
-            color: #00AEEF;
-            margin-bottom: 5px;
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
-        .subtitle {
-            font-size: 0.8rem;
-            color: #888;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-        .data-box {
-            text-align: left;
-            margin-top: 20px;
-            border-left: 4px solid #00AEEF;
-            padding-left: 15px;
-            background: #f9f9f9;
-            padding: 10px;
-        }
-        .label { font-size: 0.7rem; color: #888; text-transform: uppercase; }
-        .value { font-size: 1.2rem; font-weight: bold; color: #333; }
-        .arona {
-            margin-top: 30px;
-            font-style: italic;
-            color: #00AEEF;
-            font-weight: bold;
-        }
+        body { background: #eefeff; color: #2D313D; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: #fff; width: 300px; border-radius: 20px; padding: 30px; box-shadow: 0 10px 40px rgba(0, 174, 239, 0.2); position: relative; overflow: hidden; border: 1px solid #cceeff; }
+        .halo { position: absolute; top: -50px; right: -50px; width: 150px; height: 150px; border: 2px solid #00AEEF; border-radius: 50%; opacity: 0.2; animation: spin 10s linear infinite; }
+        .halo::before { content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; border: 1px solid #00AEEF; border-radius: 50%; }
+        
+        h1 { color: #00AEEF; margin: 0; font-size: 2rem; font-weight: 900; letter-spacing: -1px; }
+        .sub { font-size: 0.8rem; color: #999; margin-bottom: 20px; letter-spacing: 2px; }
+        
+        .field { margin-bottom: 15px; border-left: 3px solid #00AEEF; padding-left: 10px; }
+        .lbl { font-size: 0.6rem; color: #aaa; font-weight: bold; letter-spacing: 1px; }
+        .val { font-size: 1.2rem; font-weight: bold; color: #333; }
+        
+        .arona { margin-top: 30px; text-align: center; color: #00AEEF; font-style: italic; font-weight: 600; background: #e0f7ff; padding: 10px; border-radius: 10px; }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="subtitle">FEDERAL INVESTIGATION CLUB</div>
+        <div class="halo"></div>
         <h1>SCHALE</h1>
+        <div class="sub">FEDERAL INVESTIGATION CLUB</div>
         
-        <div class="data-box">
-            <div class="label">AUTHORIZED PERSONNEL</div>
-            <div class="value">SENSEI</div>
+        <div class="field">
+            <div class="lbl">ID HOLDER</div>
+            <div class="val">SENSEI</div>
+        </div>
+        <div class="field">
+            <div class="lbl">AUTHORITY</div>
+            <div class="val">G.S.C ADVISOR</div>
+        </div>
+        <div class="field">
+            <div class="lbl">AREA</div>
+            <div class="val">KIVOTOS / ABYDOS</div>
         </div>
         
-        <div class="data-box">
-            <div class="label">ID NUMBER</div>
-            <div class="value">SCH-2020-AUTH</div>
-        </div>
-
         <div class="arona">
             "Welcome back, Sensei! 💙"
         </div>
